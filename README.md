@@ -4,6 +4,21 @@ Optical-flow-driven detection of cardiomyocyte ageing and injury from live-cell 
 
 Presented at the British Society for Cardiovascular Research / British Cardiovascular Society meeting: *Advanced transformer-based AI framework for early detection and prediction of cardiomyocyte ageing and injury using motion phenotyping*, Heart 111 (Suppl 3), A269-A271 (2025).
 
+## At a glance
+
+![Confusion matrix and ROC curves on the held-out test set](docs/figures/results_overview.png)
+
+**Figure 1.** Held-out test set (101 windows of 8 frame pairs). Left: confusion matrix. Right: one-vs-rest ROC curves per class. Both are outputs of the committed notebook run (`set_seed(42)`).
+
+| Class | Precision | Recall | F1 | ROC-AUC | Support |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| Healthy | 0.85 | 0.85 | 0.85 | 0.95 | 34 |
+| Aged | 0.90 | 0.79 | 0.84 | 0.92 | 34 |
+| Damaged | 0.84 | 0.94 | 0.89 | 0.97 | 33 |
+| **Overall** | **0.86** (macro) | **0.86** (macro) | **0.86** (macro) | — | **101** |
+
+**Test accuracy: 86.1%** (95% CI 0.78–0.92). Transformer encoder (2 layers, 4 heads, d_model 64) over 8-step motion-phenotype windows.
+
 ## Motivation
 
 Functional decline in ageing cardiomyocytes shows up in how the cells move before it is obvious in how they look. Frame-to-frame optical flow turns a microscopy video into a time series of contraction and relaxation descriptors, and a sequence model can then separate healthy, aged and damaged cells from that signal alone.
@@ -36,7 +51,7 @@ Every run calls `set_seed(42)`, which fixes the Python, NumPy, PyTorch and CUDA 
 
 ## Result
 
-The committed run reaches approximately 86 per cent test accuracy across the three classes. The notebook outputs contain the full classification report and confusion matrix.
+The committed run reaches 86.1 per cent test accuracy across the three classes (see *At a glance* above). The notebook outputs also contain training curves, calibration and threshold-tuning analyses.
 
 ## Running it
 
